@@ -18,7 +18,7 @@ public class EntryPoint extends Application {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ricerca.fxml"));
 		BorderPane root = loader.load();
 
-		HomeController controller = loader.getController();
+		RicercaController controller = loader.getController();
 		Model model = new Model();
 		controller.setModel(model);
 		Scene scene = new Scene(root);

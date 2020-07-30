@@ -31,5 +31,9 @@ public class Model {
 	public List<Artista> getArtistsByCachet(Long cachet) {
 		return this.dao.getArtistsByCachet(cachet);
 	}
+	
+	public List<String> getMusicalGenres() {
+		return this.dao.getMusicalGenres();
+	}
 
 }

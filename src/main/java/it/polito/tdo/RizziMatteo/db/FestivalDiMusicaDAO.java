@@ -138,5 +138,25 @@ public class FestivalDiMusicaDAO {
 			return null;
 		}
 	}
+	
+	public List<String> getMusicalGenres() {
+		String sql = "SELECT DISTINCT genere FROM artisti ORDER BY genere";
+		List<String> list = new ArrayList<>();
+		Connection conn = DBConnect.getConnection();
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+			ResultSet res = st.executeQuery();
+			while (res.next()) {
+				list.add(res.getString("genere"));
+			}
+			conn.close();
+			return list;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

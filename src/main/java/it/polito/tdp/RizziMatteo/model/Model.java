@@ -1,8 +1,10 @@
 package it.polito.tdp.RizziMatteo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.polito.tdo.RizziMatteo.db.FestivalDiMusicaDAO;
+import javafx.util.Callback;
 
 public class Model {
 	
@@ -34,6 +36,18 @@ public class Model {
 	
 	public List<String> getMusicalGenres() {
 		return this.dao.getMusicalGenres();
+	}
+
+	public List<Artista> intersezioneArtisti(List<Artista> artisti, List<Artista> intersezione) {
+		List<Artista> risultato = new ArrayList<>(); 
+		for(Artista a1 : artisti) {
+			for(Artista a2 : intersezione) {
+				if(a1.equals(a2)) {
+					risultato.add(a1);
+				}
+			}
+		}
+		return risultato; 
 	}
 
 }

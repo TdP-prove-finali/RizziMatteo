@@ -43,7 +43,7 @@ public class HomeController {
 			
 			Scene scene = new Scene(root);
 			
-			stage.setTitle("Ricerca gli artisti");
+			stage.setTitle("Ricerca degli artisti");
 			stage.setScene(scene);
 			stage.show();
 		} catch (Exception e) {
@@ -53,7 +53,27 @@ public class HomeController {
 
 	@FXML
 	void doRicorsione(ActionEvent event) {
-
+		try {
+			Stage stage = null;
+			BorderPane root = null;
+			
+			stage = (Stage) btnRicorsione.getScene().getWindow();
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ricorsione.fxml"));
+			root = loader.load();
+			
+			RicorsioneController controller = loader.getController();
+			Model model = new Model();
+			controller.setModel(model);
+			
+			Scene scene = new Scene(root);
+			
+			stage.setTitle("Combinazione ottima degli artisti");
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

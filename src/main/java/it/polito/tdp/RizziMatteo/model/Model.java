@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.polito.tdo.RizziMatteo.db.FestivalDiMusicaDAO;
-import javafx.util.Callback;
 
 public class Model {
 	

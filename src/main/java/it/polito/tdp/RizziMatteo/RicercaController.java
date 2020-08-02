@@ -129,9 +129,9 @@ public class RicercaController {
 		this.txtCachet.clear();
 		this.txtNome.clear();
 		this.txtNumeroBiglietti.clear();
-		
+
 		this.boxFiltro.setDisable(true);
-		
+
 		this.boxGenere.setDisable(false);
 		this.txtNome.setDisable(false);
 		this.txtNumeroBiglietti.setDisable(false);
@@ -143,9 +143,9 @@ public class RicercaController {
 		this.txtCachet.clear();
 		this.txtNome.clear();
 		this.txtNumeroBiglietti.clear();
-		
+
 		this.boxFiltro.setDisable(false);
-		
+
 		this.boxGenere.setDisable(true);
 		this.txtNome.setDisable(true);
 		this.txtNumeroBiglietti.setDisable(true);
@@ -157,54 +157,72 @@ public class RicercaController {
 	void avviaRicerca(ActionEvent event) {
 		ObservableList<Artista> data;
 		this.lblErrore.setText("");
-		
+
 		String genere = this.boxGenere.getValue();
 		String nome = this.txtNome.getText();
-		
-		if(this.radioCombinata.isSelected()) {
-			// INTERSEZIONE NON VA BENE!!!! SOLO SE INSERITO UN GENERE MUSICALE!!!!!!
+
+		// RICERCA COMBINATA
+		if (this.radioCombinata.isSelected()) {
 			List<Artista> intersezione = new ArrayList<>();
-			
-			if(genere != null) {
+			boolean nullo = true;
+
+			if (genere != null) {
 				intersezione.addAll(this.model.getArtistsByMusicalGenre(genere));
+				nullo = false;
 			}
-			if(!nome.equals("")) {
-				List<Artista> artisti = new ArrayList<>();
-				artisti.addAll(this.model.getArtistsByPartOfName(nome));
-				intersezione = this.model.intersezioneArtisti(artisti, intersezione);
+			if (!nome.equals("")) {
+				if (nullo) {
+					intersezione.addAll(this.model.getArtistsByPartOfName(nome));
+					nullo = false;
+				} else {
+					List<Artista> artisti = new ArrayList<>();
+					artisti.addAll(this.model.getArtistsByPartOfName(nome));
+					intersezione = this.model.intersezioneArtisti(artisti, intersezione);
+				}
 			}
 			String mediaTesto = this.txtNumeroBiglietti.getText().trim();
-			if(!mediaTesto.equals("")) {
+			if (!mediaTesto.equals("")) {
 				try {
 					Double media = Double.parseDouble(mediaTesto);
-					List<Artista> artisti = new ArrayList<>();
-					artisti.addAll(this.model.getArtistsByAverageTicketsSold(media));
-					intersezione = this.model.intersezioneArtisti(artisti, intersezione);
+					if (nullo) {
+						intersezione.addAll(this.model.getArtistsByAverageTicketsSold(media));
+						nullo = false;
+					} else {
+						List<Artista> artisti = new ArrayList<>();
+						artisti.addAll(this.model.getArtistsByAverageTicketsSold(media));
+						intersezione = this.model.intersezioneArtisti(artisti, intersezione);
+					}
 				} catch (NumberFormatException e) {
 					this.lblErrore.setText(
 							"Errore! Devi inserire un valore decimale per il numero medio di biglietti venduti nell'apposita casella di testo.");
 				}
 			}
-			
+
 			String cachetTesto = this.txtCachet.getText().trim();
-			if(!cachetTesto.equals("")) {
+			if (!cachetTesto.equals("")) {
 				try {
 					Long cachet = Long.parseLong(cachetTesto);
-					List<Artista> artisti = new ArrayList<>();
-					artisti.addAll(this.model.getArtistsByCachet(cachet));
-					intersezione = this.model.intersezioneArtisti(artisti, intersezione);
+					if (nullo) {
+						intersezione.addAll(this.model.getArtistsByCachet(cachet));
+						nullo = false;
+					} else {
+						List<Artista> artisti = new ArrayList<>();
+						artisti.addAll(this.model.getArtistsByCachet(cachet));
+						intersezione = this.model.intersezioneArtisti(artisti, intersezione);
+					}
 				} catch (NumberFormatException e) {
 					this.lblErrore.setText(
 							"Errore! Devi inserire un valore intero per il cachet medio nell'apposita casella di testo.");
 				}
 			}
-			
+
 			data = FXCollections.observableArrayList(intersezione);
 			this.tableArtista.setItems(data);
-			
+
 		}
-		
-		else if(this.radioFiltro.isSelected()) {
+
+		// RICERCA TRAMITE FILTRO
+		else if (this.radioFiltro.isSelected()) {
 			String filtro = this.boxFiltro.getValue();
 			if (filtro == null) {
 				this.lblErrore.setText("Errore! Devi selezionare un filtro dall'apposito menu a tendina.");
@@ -284,7 +302,7 @@ public class RicercaController {
 		assert tcGenere != null : "fx:id=\"tcGenere\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert tcBiglietti != null : "fx:id=\"tcBiglietti\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert tcCachet != null : "fx:id=\"tcCachet\" was not injected: check your FXML file 'Ricerca.fxml'.";
-		
+
 	}
 
 	public void setModel(Model model) {

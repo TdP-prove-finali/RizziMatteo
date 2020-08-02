@@ -8,9 +8,12 @@ import it.polito.tdo.RizziMatteo.db.FestivalDiMusicaDAO;
 public class Model {
 	
 	private FestivalDiMusicaDAO dao;
+	private List<Artista> best;
+	private Integer spesa;
 	
 	public Model() {
 		this.dao = new FestivalDiMusicaDAO();
+		this.spesa = 0;
 	}
 	
 	public List<Artista> listAllArtists() {

@@ -77,7 +77,7 @@
                         <Insets bottom="3.0" left="25.0" right="25.0" top="10.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <HBox alignment="CENTER">
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Inserisci il minimo numero medio di biglietti venduti:" textFill="WHITE">
                            <HBox.margin>
@@ -93,7 +93,7 @@
                         <Insets bottom="3.0" left="25.0" right="25.0" top="3.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER">
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Inserisci il valore massimo per il cachet ($):" textFill="WHITE">
                            <font>
@@ -109,7 +109,7 @@
                         <Insets bottom="3.0" left="25.0" right="25.0" top="3.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER">
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Inserisci il nome di un artista o una parte di esso:" textFill="WHITE">
                            <font>
@@ -151,7 +151,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <HBox>
+                  <HBox VBox.vgrow="ALWAYS">
                      <children>
                         <Button fx:id="btnAggiungi" disable="true" mnemonicParsing="false" onAction="#aggiungiSoluzioneParziale" style="-fx-background-color: #BF8F0B;" text="Aggiungi alla soluzione parziale" textFill="WHITE">
                            <font>

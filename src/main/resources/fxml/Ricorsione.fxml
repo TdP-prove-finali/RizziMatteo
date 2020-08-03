@@ -121,8 +121,16 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                            <HBox.margin>
-                              <Insets />
+                              <Insets right="20.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnConfermaGeneri" mnemonicParsing="false" onAction="#permettiSceltaPrivilegiati" style="-fx-background-color: #BF8F0B;" text="Conferma selezione generi musicali" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -136,7 +144,7 @@
             </VBox>
             <VBox VBox.vgrow="ALWAYS">
                <children>
-                  <RadioButton fx:id="radioNoPrivilegiati" mnemonicParsing="false" onAction="#disattivaPrivilegiati" selected="true" text="Nessun genere musicale privilegiato" textFill="WHITE">
+                  <RadioButton fx:id="radioNoPrivilegiati" disable="true" mnemonicParsing="false" onAction="#disattivaPrivilegiati" selected="true" text="Nessun genere musicale privilegiato" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -149,7 +157,7 @@
                   </RadioButton>
                   <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                      <children>
-                        <RadioButton fx:id="radioPrivilegiati" mnemonicParsing="false" onAction="#attivaPrivilegiati" text="Ammetti generi musicali privilegiati" textFill="WHITE" toggleGroup="$groupPrivilegiati">
+                        <RadioButton fx:id="radioPrivilegiati" disable="true" mnemonicParsing="false" onAction="#attivaPrivilegiati" text="Ammetti generi musicali privilegiati" textFill="WHITE" toggleGroup="$groupPrivilegiati">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -163,11 +171,34 @@
                         <Insets bottom="4.0" />
                      </VBox.margin>
                   </HBox>
-                  <Slider fx:id="sliderPeso" blockIncrement="0.1" disable="true" majorTickUnit="0.1" max="2.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0">
+                  <Button fx:id="btnPrivilegiati" disable="true" mnemonicParsing="false" onAction="#aggiungiAPrivilegiati" style="-fx-background-color: #BF8F0B;" text="Aggiungi genere tra i privilegiati" textFill="WHITE">
                      <VBox.margin>
-                        <Insets right="300.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
-                  </Slider>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="lblPrivilegiati" disable="true" text="Seleziona il peso da attribuire ai generi privilegiati:" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sliderPeso" blockIncrement="0.1" disable="true" majorTickUnit="0.1" max="2.0" min="1.0" minorTickCount="0" prefHeight="38.0" prefWidth="174.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0">
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor>
+                        </Slider>
+                     </children>
+                  </HBox>
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" left="25.0" right="25.0" top="10.0" />

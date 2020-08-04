@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -20,6 +22,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class RicercaController {
 
@@ -280,6 +284,26 @@ public class RicercaController {
 
 	@FXML
 	void vaiAllaSoluzione(ActionEvent event) {
+		try {
+			Stage stage = null;
+			BorderPane root = null;
+			
+			stage = (Stage) this.btnSoluzione.getScene().getWindow();
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ricorsione.fxml"));
+			root = loader.load();
+			
+			RicorsioneController controller = loader.getController();
+			controller.setModel(model);
+			
+			Scene scene = new Scene(root);
+			
+			stage.setTitle("Combinazione ottima degli artisti");
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

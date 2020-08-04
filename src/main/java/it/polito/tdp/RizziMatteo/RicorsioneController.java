@@ -28,6 +28,7 @@ public class RicorsioneController {
 
 	private Model model;
 	private List<String> generiAmmessi;
+	private List<String> generiPrivilegiati;
 
 	@FXML
 	private ResourceBundle resources;
@@ -76,6 +77,9 @@ public class RicorsioneController {
 	
     @FXML
     private Button btnPrivilegiati;
+    
+    @FXML
+    private Button btnResetPrivilegiati;
 
     @FXML
     private Label lblPrivilegiati;
@@ -94,6 +98,15 @@ public class RicorsioneController {
 
 	@FXML
 	private TextField txtNumeroArtisti;
+	
+    @FXML
+    private RadioButton radioBiglietti;
+
+    @FXML
+    private ToggleGroup groupOttimo;
+
+    @FXML
+    private RadioButton radioSpotify;
 
 	@FXML
 	private Label lblErrore;
@@ -124,6 +137,23 @@ public class RicorsioneController {
 	
     @FXML
     void aggiungiAPrivilegiati(ActionEvent event) {
+    	this.lblErrore.setText("");
+    	
+    	String privilegiato = this.boxPrivilegiati.getValue();
+    	
+    	if(privilegiato == null) {
+    		this.lblErrore.setText("Errore! Per poter aggiungere un genere tra i privilegiati devi selezionarne uno dall'apposito menu.");
+    		return;
+    	}
+    	
+    	if(this.generiPrivilegiati.contains(privilegiato)) {
+    		this.lblErrore.setText("Errore! Il genere selezionato è già presente tra i privilegiati.");
+    		return;
+    	}
+    	
+    	this.generiPrivilegiati.add(privilegiato);
+    	this.radioNoPrivilegiati.setDisable(true);
+    	this.btnResetPrivilegiati.setDisable(false);
 
     }
 
@@ -231,8 +261,20 @@ public class RicorsioneController {
 			this.lblPrivilegiati.setDisable(false);
 		}
 		
+		this.groupGeneri.selectToggle(radioTuttiGeneri);
+		this.boxGeneri.setDisable(true);
+		this.btnGeneri.setDisable(true);
     	this.radioPrivilegiati.setDisable(false);
 		this.radioNoPrivilegiati.setDisable(false);
+
+    }
+    
+    @FXML
+    void resettaPrivilegiati(ActionEvent event) {
+    	this.lblErrore.setText("");
+    	this.generiPrivilegiati = new ArrayList<>();
+    	this.radioNoPrivilegiati.setDisable(false);
+    	this.btnResetPrivilegiati.setDisable(true);
 
     }
 
@@ -242,7 +284,7 @@ public class RicorsioneController {
 		String genere = this.boxGeneri.getValue();
 		
 		if(genere == null) {
-			this.lblErrore.setText("Errore! Per poter aggiungere il genere musicale selezionato ne dei selezionare uno dall'apposito menu.");
+			this.lblErrore.setText("Errore! Per poter aggiungere il genere musicale selezionato ne devi selezionare uno dall'apposito menu.");
 			return;
 		}
 		
@@ -293,6 +335,7 @@ public class RicorsioneController {
 		assert groupPrivilegiati != null : "fx:id=\"groupPrivilegiati\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert radioPrivilegiati != null : "fx:id=\"radioPrivilegiati\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnPrivilegiati != null : "fx:id=\"btnPrivilegiati\" was not injected: check your FXML file 'Ricorsione.fxml'.";
+        assert btnResetPrivilegiati != null : "fx:id=\"btnResetPrivilegiati\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert lblPrivilegiati != null : "fx:id=\"lblPrivilegiati\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert boxPrivilegiati != null : "fx:id=\"boxPrivilegiati\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert sliderPeso != null : "fx:id=\"sliderPeso\" was not injected: check your FXML file 'Ricorsione.fxml'.";
@@ -300,6 +343,9 @@ public class RicorsioneController {
 		assert groupNumeroArtisti != null : "fx:id=\"groupNumeroArtisti\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert radioArtistiLimitati != null : "fx:id=\"radioArtistiLimitati\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert txtNumeroArtisti != null : "fx:id=\"txtNumeroArtisti\" was not injected: check your FXML file 'Ricorsione.fxml'.";
+		assert radioBiglietti != null : "fx:id=\"radioBiglietti\" was not injected: check your FXML file 'Ricorsione.fxml'.";
+		assert groupOttimo != null : "fx:id=\"groupOttimo\" was not injected: check your FXML file 'Ricorsione.fxml'.";
+		assert radioSpotify != null : "fx:id=\"radioSpotify\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert lblErrore != null : "fx:id=\"lblErrore\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnRicorsione != null : "fx:id=\"btnRicorsione\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Ricorsione.fxml'.";
@@ -315,6 +361,7 @@ public class RicorsioneController {
 	public void setModel(Model model) {
 		this.model = model;
 		this.boxGeneri.getItems().addAll(this.model.getMusicalGenres());
+		this.generiPrivilegiati = new ArrayList<>();
 		
 		this.colBiglietti.setCellValueFactory(new PropertyValueFactory<Artista, Double>("numeroMedioBigliettiVenduti"));
 		this.colCachet.setCellValueFactory(new PropertyValueFactory<Artista, Long>("cachetMedio"));

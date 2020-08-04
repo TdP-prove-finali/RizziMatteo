@@ -34,7 +34,7 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="15.0" />
                </VBox.margin>
             </VBox>
             <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
@@ -139,7 +139,7 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                </VBox.margin>
             </VBox>
             <VBox VBox.vgrow="ALWAYS">
@@ -171,17 +171,32 @@
                         <Insets bottom="4.0" />
                      </VBox.margin>
                   </HBox>
-                  <Button fx:id="btnPrivilegiati" disable="true" mnemonicParsing="false" onAction="#aggiungiAPrivilegiati" style="-fx-background-color: #BF8F0B;" text="Aggiungi genere tra i privilegiati" textFill="WHITE">
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="btnPrivilegiati" disable="true" mnemonicParsing="false" onAction="#aggiungiAPrivilegiati" style="-fx-background-color: #BF8F0B;" text="Aggiungi genere tra i privilegiati" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnResetPrivilegiati" disable="true" mnemonicParsing="false" onAction="#resettaPrivilegiati" style="-fx-background-color: #BF8F0B;" text="Reset privilegiati" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
                      <VBox.margin>
-                        <Insets bottom="5.0" />
+                        <Insets bottom="4.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
+                  </HBox>
                   <HBox VBox.vgrow="ALWAYS">
                      <children>
                         <Label fx:id="lblPrivilegiati" disable="true" text="Seleziona il peso da attribuire ai generi privilegiati:" textFill="WHITE">
@@ -201,7 +216,7 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets bottom="20.0" left="25.0" right="25.0" top="10.0" />
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
                </VBox.margin>
             </VBox>
             <VBox VBox.vgrow="ALWAYS">
@@ -232,9 +247,28 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets bottom="15.0" left="25.0" right="25.0" top="5.0" />
+                  <Insets bottom="25.0" left="25.0" right="25.0" />
                </VBox.margin>
             </VBox>
+            <RadioButton fx:id="radioBiglietti" mnemonicParsing="false" selected="true" text="Combinazione ottima in base ai biglietti venduti nei concerti" textFill="WHITE">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="25.0" right="25.0" />
+               </VBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="groupOttimo" />
+               </toggleGroup>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="radioSpotify" mnemonicParsing="false" text="Combinazione ottima in base agli ascolti nell'ultimo mese su Spotify" textFill="WHITE" toggleGroup="$groupOttimo">
+               <VBox.margin>
+                  <Insets bottom="7.0" left="25.0" right="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
             <Label fx:id="lblErrore" textFill="RED">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -255,7 +289,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="btnReset" mnemonicParsing="false" onAction="#doReset" style="-fx-background-color: #BF8F0B;" text="Reset" textFill="WHITE">
+                  <Button fx:id="btnReset" disable="true" mnemonicParsing="false" onAction="#doReset" style="-fx-background-color: #BF8F0B;" text="Reset" textFill="WHITE">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>

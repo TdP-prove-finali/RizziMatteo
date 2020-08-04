@@ -84,7 +84,7 @@ public class RicercaController {
 	private TableColumn<Artista, Double> tcBiglietti;
 
 	@FXML
-	private TableColumn<Artista, Long> tcCachet;
+	private TableColumn<Artista, Integer> tcCachet;
 
 	@FXML
 	void abilitaSelezione(ActionEvent event) {
@@ -342,7 +342,7 @@ public class RicercaController {
 		this.boxGenere.getItems().addAll(this.model.getMusicalGenres());
 
 		this.tcBiglietti.setCellValueFactory(new PropertyValueFactory<Artista, Double>("numeroMedioBigliettiVenduti"));
-		this.tcCachet.setCellValueFactory(new PropertyValueFactory<Artista, Long>("cachetMedio"));
+		this.tcCachet.setCellValueFactory(new PropertyValueFactory<Artista, Integer>("cachetMedio"));
 		this.tcGenere.setCellValueFactory(new PropertyValueFactory<Artista, String>("genere"));
 		this.tcNome.setCellValueFactory(new PropertyValueFactory<Artista, String>("nome"));
 

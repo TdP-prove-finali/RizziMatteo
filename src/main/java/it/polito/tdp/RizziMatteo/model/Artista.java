@@ -9,7 +9,7 @@ public class Artista {
 	private Integer numeroDiShow;
 	private Double numeroMedioBigliettiVenduti;
 //	private Long ascoltiSpotifyMensili;
-	private Long cachetMedio;
+	private Integer cachetMedio;
 
 	/**
 	 * Crea un nuovo Artista a partire dai parametri inseriti
@@ -23,7 +23,7 @@ public class Artista {
 	 * @param cachetMedio
 	 */
 	public Artista(Integer id, String nome, String genere, Long bigliettiVenduti, Integer numeroDiShow,
-			Double numeroMedioBigliettiVenduti, /*Long ascoltiSpotifyMensili, */ Long cachetMedio) {
+			Double numeroMedioBigliettiVenduti, /*Long ascoltiSpotifyMensili, */ Integer cachetMedio) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -91,11 +91,11 @@ public class Artista {
 		this.ascoltiSpotifyMensili = ascoltiSpotifyMensili;
 	} */
 
-	public Long getCachetMedio() {
+	public Integer getCachetMedio() {
 		return cachetMedio;
 	}
 
-	public void setCachetMedio(Long cachetMedio) {
+	public void setCachetMedio(Integer cachetMedio) {
 		this.cachetMedio = cachetMedio;
 	}
 

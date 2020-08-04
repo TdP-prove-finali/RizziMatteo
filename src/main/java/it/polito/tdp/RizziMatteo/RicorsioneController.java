@@ -133,7 +133,7 @@ public class RicorsioneController {
 	private TableColumn<Artista, Double> colBiglietti;
 
 	@FXML
-	private TableColumn<Artista, Long> colCachet;
+	private TableColumn<Artista, Integer> colCachet;
 	
     @FXML
     void aggiungiAPrivilegiati(ActionEvent event) {
@@ -364,7 +364,7 @@ public class RicorsioneController {
 		this.generiPrivilegiati = new ArrayList<>();
 		
 		this.colBiglietti.setCellValueFactory(new PropertyValueFactory<Artista, Double>("numeroMedioBigliettiVenduti"));
-		this.colCachet.setCellValueFactory(new PropertyValueFactory<Artista, Long>("cachetMedio"));
+		this.colCachet.setCellValueFactory(new PropertyValueFactory<Artista, Integer>("cachetMedio"));
 		this.colGenere.setCellValueFactory(new PropertyValueFactory<Artista, String>("genere"));
 		this.colNome.setCellValueFactory(new PropertyValueFactory<Artista, String>("nome"));
 	}

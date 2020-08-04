@@ -23,7 +23,7 @@ public class FestivalDiMusicaDAO {
 
 				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-						res.getDouble("numero_medio_biglietti_venduti"), res.getLong("cachet_medio"));
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
 
 				list.add(artista);
 			}
@@ -48,7 +48,7 @@ public class FestivalDiMusicaDAO {
 				if (res.getString("nome").toLowerCase().contains(nome.toLowerCase())) {
 					Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 							res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-							res.getDouble("numero_medio_biglietti_venduti"), res.getLong("cachet_medio"));
+							res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
 					list.add(artista);
 				}
 			}
@@ -74,7 +74,7 @@ public class FestivalDiMusicaDAO {
 
 				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-						res.getDouble("numero_medio_biglietti_venduti"), res.getLong("cachet_medio"));
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
 
 				list.add(artista);
 			}
@@ -100,7 +100,7 @@ public class FestivalDiMusicaDAO {
 
 				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-						res.getDouble("numero_medio_biglietti_venduti"), res.getLong("cachet_medio"));
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
 
 				list.add(artista);
 			}
@@ -126,7 +126,7 @@ public class FestivalDiMusicaDAO {
 
 				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-						res.getDouble("numero_medio_biglietti_venduti"), res.getLong("cachet_medio"));
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
 
 				list.add(artista);
 			}

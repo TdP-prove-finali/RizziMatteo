@@ -19,6 +19,10 @@ public class Model {
 		this.parziale = new ArrayList<>();
 	}
 	
+	public Integer getSpesaAggiunti() {
+		return this.spesaAggiunti;
+	}
+	
 	public void aggiornaSpesa(Integer spesa) {
 		this.spesaAggiunti += spesa;
 	}
@@ -125,16 +129,16 @@ public class Model {
 		if(L == artistiConsentiti.size())
 			return;
 		
-		if(this.best.size() == numeroArtisti)
-			return;
+//		if(this.best.size() == numeroArtisti)
+//			return;
 		
-		Integer spesaIpotetica = spesa(parziale) + artistiConsentiti.get(L).getArtista().getCachetMedio();
-		if(spesaIpotetica <= budgetMassimo) {
+//		Integer spesaIpotetica = spesa(parziale) + artistiConsentiti.get(L).getArtista().getCachetMedio();
+//		if(spesaIpotetica <= budgetMassimo) {
 			// provo ad aggiungerlo
 			parziale.add(artistiConsentiti.get(L).getArtista());
 			this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti, L + 1);
 			parziale.remove(artistiConsentiti.get(L).getArtista());
-		}
+//		}
 			// provo a non aggiungerlo
 			this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti, L + 1);
 		
@@ -198,6 +202,10 @@ public class Model {
 		}
 		
 		return artistiConsentiti;
+	}
+	
+	public Integer spesaTotale() {
+		return spesa(this.best);
 	}
 
 }

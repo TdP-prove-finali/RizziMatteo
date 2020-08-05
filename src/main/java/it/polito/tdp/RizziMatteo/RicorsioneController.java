@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import it.polito.tdp.RizziMatteo.model.Artista;
 import it.polito.tdp.RizziMatteo.model.Model;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -190,18 +192,53 @@ public class RicorsioneController {
 	void avviaRicorsione(ActionEvent event) {
 		this.lblErrore.setText("");
 		
+		ObservableList<Artista> data;
+		
 		if(this.radioPrivilegiati.isDisabled() && this.radioNoPrivilegiati.isDisabled()) {
 			this.lblErrore.setText("Errore! Per poter avviare la ricorsione devi prima confermare la selezione dei generi musicali.");
 			return;
 		}
 		
+		List<String> generiSelezionati = new ArrayList<>(this.generiAmmessi);
+		List<String> generiPrivilegiati = new ArrayList<>(this.generiPrivilegiati);
+		Double fattoreCorrettivo = 1.0;
+		Integer numeroArtisti = null;
+		Integer budgetMassimo;
+		
+		try {
+			budgetMassimo = Integer.parseInt(this.txtBudgetDisponibile.getText());
+		} catch(NumberFormatException e) {
+			this.lblErrore.setText("Errore! Devi inserire un valore numerico intero rappresentante il budget disponibile.");
+			return;
+		}
+		
 		if(this.radioPrivilegiati.isSelected()) {
-			if(this.boxPrivilegiati.getItems().size() == 0) {
+			if(generiPrivilegiati.size() == 0) {
 				this.lblErrore.setText("Errore! Hai selezionato l'opzione dei generi privilegiati, ma non hai aggiunto alcun genere tra i privilegiati!");
+				return;
+			}
+			else {
+				fattoreCorrettivo = this.sliderPeso.getValue();
+			}
+		}
+		
+		if(this.radioArtistiLimitati.isSelected()) {
+			try {
+				numeroArtisti = Integer.parseInt(this.txtNumeroArtisti.getText());
+			} catch(NumberFormatException e) {
+				this.lblErrore.setText("Errore! Devi inserire un valore numerico intero rappresentante il numero di artisti.");
 				return;
 			}
 		}
 		
+		List<Artista> best = this.model.calcolaCombinazioneMigliore(budgetMassimo, numeroArtisti, generiSelezionati, generiPrivilegiati, fattoreCorrettivo);
+		
+		Integer budgetRimanente = budgetMassimo - this.model.spesaTotale();
+		
+		this.txtBudgetRimanente.setText(budgetRimanente.toString());
+		
+		data = FXCollections.observableArrayList(best);
+		this.tableSoluzione.setItems(data);
 	}
 
 	@FXML
@@ -363,9 +400,12 @@ public class RicorsioneController {
 		this.boxGeneri.getItems().addAll(this.model.getMusicalGenres());
 		this.generiPrivilegiati = new ArrayList<>();
 		
+		this.txtSpesa.setText(this.model.getSpesaAggiunti().toString());
+		
 		this.colBiglietti.setCellValueFactory(new PropertyValueFactory<Artista, Double>("numeroMedioBigliettiVenduti"));
 		this.colCachet.setCellValueFactory(new PropertyValueFactory<Artista, Integer>("cachetMedio"));
 		this.colGenere.setCellValueFactory(new PropertyValueFactory<Artista, String>("genere"));
 		this.colNome.setCellValueFactory(new PropertyValueFactory<Artista, String>("nome"));
+		
 	}
 }

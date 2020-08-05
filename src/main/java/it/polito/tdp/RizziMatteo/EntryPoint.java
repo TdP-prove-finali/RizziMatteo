@@ -19,8 +19,7 @@ public class EntryPoint extends Application {
 		BorderPane root = loader.load();
 
 		HomeController controller = loader.getController();
-		/* Model model = new Model();
-		controller.setModel(model); */
+
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/styles/Styles.css").toExternalForm());
 		

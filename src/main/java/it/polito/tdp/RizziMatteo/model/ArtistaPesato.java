@@ -1,6 +1,6 @@
 package it.polito.tdp.RizziMatteo.model;
 
-public class ArtistaPesato {
+public class ArtistaPesato implements Comparable<ArtistaPesato>{
 
 	private Artista artista;
 	private Double peso;
@@ -50,6 +50,11 @@ public class ArtistaPesato {
 		} else if (!artista.equals(other.artista))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(ArtistaPesato other) {
+		return other.getPeso().compareTo(this.peso);
 	}
 	
 	

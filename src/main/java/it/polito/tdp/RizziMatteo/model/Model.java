@@ -1,6 +1,7 @@
 package it.polito.tdp.RizziMatteo.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import it.polito.tdo.RizziMatteo.db.FestivalDiMusicaDAO;
@@ -71,6 +72,8 @@ public class Model {
 		
 		this.best = new ArrayList<>();
 		List<ArtistaPesato> artistiConsentiti = this.getArtistiPesati(generiPrivilegiati, generiSelezionati, fattoreCorrettivo);
+		Collections.sort(artistiConsentiti);
+		
 		System.out.println("Size artisti consentiti: " + artistiConsentiti.size()); // DA CANCELLARE
 		List<Artista> parziale = new ArrayList<>(this.parziale);
 		
@@ -122,9 +125,11 @@ public class Model {
 		if(L == artistiConsentiti.size())
 			return;
 		
+		if(this.best.size() == numeroArtisti)
+			return;
+		
 		Integer spesaIpotetica = spesa(parziale) + artistiConsentiti.get(L).getArtista().getCachetMedio();
-		Double pesoIpotetico = this.sommaPesi(parziale, artistiConsentiti) + artistiConsentiti.get(L).getArtista().getNumeroMedioBigliettiVenduti();
-		if(spesaIpotetica <= budgetMassimo && pesoIpotetico > sommaPesi(best, artistiConsentiti)) {
+		if(spesaIpotetica <= budgetMassimo) {
 			// provo ad aggiungerlo
 			parziale.add(artistiConsentiti.get(L).getArtista());
 			this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti, L + 1);
@@ -133,13 +138,13 @@ public class Model {
 			// provo a non aggiungerlo
 			this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti, L + 1);
 		
-		/*
-		for(ArtistaPesato a : artistiConsentiti) {
+		
+		/*for(ArtistaPesato a : artistiConsentiti) {
 			if(!parziale.contains(a.getArtista())) {
 				Integer spesaIpotetica = spesa(parziale) + a.getArtista().getCachetMedio();
 				if(spesaIpotetica <= budgetMassimo) {
 					parziale.add(a.getArtista());
-					this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti);
+					this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti, L + 1);
 					parziale.remove(a.getArtista());
 				}
 			}
@@ -171,13 +176,15 @@ public class Model {
 			Double fattoreCorrettivo) {
 		List<ArtistaPesato> artistiConsentiti = new ArrayList<>();
 		
-		// DA CANCELLARE?
 		if(generiPrivilegiati.size() == 0) {
 			fattoreCorrettivo = 1.0;
 		}
 		
 		Double pesoMinore = 1 / (fattoreCorrettivo * generiPrivilegiati.size() + ( generiSelezionati.size() - generiPrivilegiati.size() ));
 		Double pesoMaggiore = fattoreCorrettivo * pesoMinore;
+		
+		System.out.println("Peso minore: " + pesoMinore);
+		System.out.println("Peso maggiore: " + pesoMaggiore);
 		
 		for(Artista artista : this.dao.listAllArtists()) {
 			if(generiPrivilegiati.size() != 0 && generiPrivilegiati.contains(artista.getGenere())) {

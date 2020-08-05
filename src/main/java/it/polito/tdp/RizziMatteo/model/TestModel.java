@@ -9,8 +9,9 @@ public class TestModel {
 		Model model = new Model();
 		
 		List<String> generiSelezionati = model.getMusicalGenres();
+
 		List<String> generiPrivilegiati = new ArrayList<>();
-		List<Artista> best = model.calcolaCombinazioneMigliore(2000000, null, generiSelezionati, generiPrivilegiati, 1.0);
+		List<Artista> best = model.calcolaCombinazioneMigliore(5000000, 10, generiSelezionati, generiPrivilegiati, 1.0);
 		System.out.println("Combinazione migliore:");
 		for(Artista a : best) {
 			System.out.println(a);

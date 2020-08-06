@@ -125,6 +125,22 @@ public class RicercaController {
 
 	@FXML
 	void aggiungiSoluzioneParziale(ActionEvent event) {
+		this.lblErrore.setText("");
+		
+		Artista artista = this.tableArtista.getSelectionModel().getSelectedItem();
+		
+		if(artista == null) {
+			this.lblErrore.setText("Errore! Per poter aggiungere un artista alla soluzione ottima devi selezionarne uno.");
+			return;
+		}
+		
+		if(this.model.getParziale().contains(artista)) {
+			this.lblErrore.setText("Errore! Hai già inserito l'artista selezionato alla soluzione ottima.");
+			return;
+		}
+		
+		this.model.getParziale().add(artista);
+		this.model.aggiornaSpesa(artista.getCachetMedio());
 
 	}
 

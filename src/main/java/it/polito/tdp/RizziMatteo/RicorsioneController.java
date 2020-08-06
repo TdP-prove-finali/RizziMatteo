@@ -211,7 +211,7 @@ public class RicorsioneController {
 			this.lblErrore.setText("Errore! Devi inserire un valore numerico intero rappresentante il budget disponibile.");
 			return;
 		}
-		
+				
 		if(this.radioPrivilegiati.isSelected()) {
 			if(generiPrivilegiati.size() == 0) {
 				this.lblErrore.setText("Errore! Hai selezionato l'opzione dei generi privilegiati, ma non hai aggiunto alcun genere tra i privilegiati!");
@@ -231,6 +231,11 @@ public class RicorsioneController {
 			}
 		}
 		
+		if(budgetMassimo < this.model.getSpesaAggiunti()) {
+			this.lblErrore.setText("Errore! Il valore inserito per il budget è insufficiente: gli artisti aggiunti superano il valore del budget disponibile.");
+			return;
+		}
+		
 		List<Artista> best = this.model.calcolaCombinazioneMigliore(budgetMassimo, numeroArtisti, generiSelezionati, generiPrivilegiati, fattoreCorrettivo);
 		
 		Integer budgetRimanente = budgetMassimo - this.model.spesaTotale();
@@ -239,6 +244,9 @@ public class RicorsioneController {
 		
 		data = FXCollections.observableArrayList(best);
 		this.tableSoluzione.setItems(data);
+		
+		this.btnReset.setDisable(false);
+		this.btnRicorsione.setDisable(true);
 	}
 
 	@FXML
@@ -272,6 +280,34 @@ public class RicorsioneController {
 
 	@FXML
 	void doReset(ActionEvent event) {
+		this.boxGeneri.setDisable(true);
+		this.btnGeneri.setDisable(true);
+		
+		this.radioPrivilegiati.setDisable(true);
+		this.radioNoPrivilegiati.setDisable(true);
+		this.boxPrivilegiati.setDisable(true);
+		this.sliderPeso.setDisable(true);
+		this.btnPrivilegiati.setDisable(true);
+		this.lblPrivilegiati.setDisable(true);
+		this.boxPrivilegiati.getItems().clear();
+		
+		this.boxPrivilegiati.setDisable(true);
+		this.sliderPeso.setDisable(true);
+		this.btnPrivilegiati.setDisable(true);
+		this.lblPrivilegiati.setDisable(true);
+		
+		this.txtNumeroArtisti.setDisable(true);
+		
+		this.txtBudgetDisponibile.clear();
+		this.txtBudgetRimanente.clear();
+		this.txtNumeroArtisti.clear();
+		this.model.resetSpesa();
+		this.txtSpesa.setText(this.model.getSpesaAggiunti().toString());
+		
+		this.btnReset.setDisable(true);
+		this.btnRicorsione.setDisable(false);
+		
+		this.model.getParziale().clear();
 
 	}
 	

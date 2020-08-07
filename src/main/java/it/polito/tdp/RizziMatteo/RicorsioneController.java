@@ -112,6 +112,9 @@ public class RicorsioneController {
 
 	@FXML
 	private Label lblErrore;
+	
+    @FXML
+    private Label lblSuccesso;
 
 	@FXML
 	private Button btnRicorsione;
@@ -140,22 +143,26 @@ public class RicorsioneController {
     @FXML
     void aggiungiAPrivilegiati(ActionEvent event) {
     	this.lblErrore.setText("");
+    	this.lblSuccesso.setText("");
     	
     	String privilegiato = this.boxPrivilegiati.getValue();
     	
+    	// se non viene selezionato alcun genere
     	if(privilegiato == null) {
     		this.lblErrore.setText("Errore! Per poter aggiungere un genere tra i privilegiati devi selezionarne uno dall'apposito menu.");
     		return;
     	}
     	
+    	// se il genere è stato già aggiunto ai privilegiati
     	if(this.generiPrivilegiati.contains(privilegiato)) {
     		this.lblErrore.setText("Errore! Il genere selezionato è già presente tra i privilegiati.");
     		return;
     	}
     	
-    	this.generiPrivilegiati.add(privilegiato);
-    	this.radioNoPrivilegiati.setDisable(true);
-    	this.btnResetPrivilegiati.setDisable(false);
+    	this.generiPrivilegiati.add(privilegiato); // aggiungo genere tra i privilegiati
+    	this.lblSuccesso.setText("Genere musicale aggiunto con successo tra i privilegiati!");
+    	this.radioNoPrivilegiati.setDisable(true); // non posso più selezionare l'opzione "no privilegiati": devo prima resettare i privilegiati
+    	this.btnResetPrivilegiati.setDisable(false); // permetto reset privilegiati
 
     }
 
@@ -191,6 +198,7 @@ public class RicorsioneController {
 	@FXML
 	void avviaRicorsione(ActionEvent event) {
 		this.lblErrore.setText("");
+		this.lblSuccesso.setText("");
 		
 		ObservableList<Artista> data;
 		
@@ -225,6 +233,11 @@ public class RicorsioneController {
 		if(this.radioArtistiLimitati.isSelected()) {
 			try {
 				numeroArtisti = Integer.parseInt(this.txtNumeroArtisti.getText());
+				
+				if(numeroArtisti < this.model.getParziale().size()) {
+					this.lblErrore.setText("Errore! Hai inserito un numero di artisti minore di quelli già aggiunti.");
+					return;
+				}
 			} catch(NumberFormatException e) {
 				this.lblErrore.setText("Errore! Devi inserire un valore numerico intero rappresentante il numero di artisti.");
 				return;
@@ -307,7 +320,12 @@ public class RicorsioneController {
 		this.btnReset.setDisable(true);
 		this.btnRicorsione.setDisable(false);
 		
+		this.radioTuttiGeneri.setSelected(true);
+		this.radioArtistiIllimitati.setSelected(true);
+		this.radioNoPrivilegiati.setSelected(true);
+		
 		this.model.getParziale().clear();
+		this.generiPrivilegiati = new ArrayList<>();
 
 	}
 	
@@ -322,6 +340,7 @@ public class RicorsioneController {
 				return;
 			}
 		} else if(this.radioTuttiGeneri.isSelected()) {
+			this.boxPrivilegiati.getItems().clear();
 			this.boxPrivilegiati.getItems().addAll(this.model.getMusicalGenres());
 		}
 		
@@ -345,6 +364,7 @@ public class RicorsioneController {
     @FXML
     void resettaPrivilegiati(ActionEvent event) {
     	this.lblErrore.setText("");
+    	this.lblSuccesso.setText("");
     	this.generiPrivilegiati = new ArrayList<>();
     	this.radioNoPrivilegiati.setDisable(false);
     	this.btnResetPrivilegiati.setDisable(true);
@@ -354,6 +374,7 @@ public class RicorsioneController {
 	@FXML
 	void riempiPrivilegiati(ActionEvent event) {
 		this.lblErrore.setText("");
+		this.lblSuccesso.setText("");
 		String genere = this.boxGeneri.getValue();
 		
 		if(genere == null) {
@@ -367,6 +388,7 @@ public class RicorsioneController {
 		}
 		
 		this.boxPrivilegiati.getItems().add(genere);
+		this.lblSuccesso.setText("Genere musicale aggiunto con successo!");
 	}
 
 	@FXML
@@ -420,6 +442,7 @@ public class RicorsioneController {
 		assert groupOttimo != null : "fx:id=\"groupOttimo\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert radioSpotify != null : "fx:id=\"radioSpotify\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert lblErrore != null : "fx:id=\"lblErrore\" was not injected: check your FXML file 'Ricorsione.fxml'.";
+        assert lblSuccesso != null : "fx:id=\"lblSuccesso\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnRicorsione != null : "fx:id=\"btnRicorsione\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Ricorsione.fxml'.";

@@ -61,6 +61,9 @@ public class RicercaController {
 
 	@FXML
 	private Label lblErrore;
+	
+    @FXML
+    private Label lblSuccesso;
 
 	@FXML
 	private Button btnRicerca;
@@ -88,6 +91,8 @@ public class RicercaController {
 
 	@FXML
 	void abilitaSelezione(ActionEvent event) {
+		// in base alla scelta del filtro si potranno specificare i valori
+		// per la ricerca per quel dato filtro
 		switch (this.boxFiltro.getValue()) {
 		case "Trova gli artisti appartenenti ad un genere musicale":
 			this.boxGenere.setDisable(false);
@@ -126,20 +131,24 @@ public class RicercaController {
 	@FXML
 	void aggiungiSoluzioneParziale(ActionEvent event) {
 		this.lblErrore.setText("");
+		this.lblSuccesso.setText("");
 		
 		Artista artista = this.tableArtista.getSelectionModel().getSelectedItem();
 		
+		// se non è stato selezionato alcun artista
 		if(artista == null) {
 			this.lblErrore.setText("Errore! Per poter aggiungere un artista alla soluzione ottima devi selezionarne uno.");
 			return;
 		}
 		
+		// se l'artista in questione è stato già aggiunto alla soluzione parziale
 		if(this.model.getParziale().contains(artista)) {
 			this.lblErrore.setText("Errore! Hai già inserito l'artista selezionato alla soluzione ottima.");
 			return;
 		}
 		
 		this.model.getParziale().add(artista);
+		this.lblSuccesso.setText("Artista aggiunto con successo!");
 		this.model.aggiornaSpesa(artista.getCachetMedio());
 
 	}
@@ -177,11 +186,12 @@ public class RicercaController {
 	void avviaRicerca(ActionEvent event) {
 		ObservableList<Artista> data;
 		this.lblErrore.setText("");
+		this.lblSuccesso.setText("");
 
 		String genere = this.boxGenere.getValue();
 		String nome = this.txtNome.getText();
 
-		// RICERCA COMBINATA
+		// RICERCA COMBINATA ---- intersezione liste
 		if (this.radioCombinata.isSelected()) {
 			List<Artista> intersezione = new ArrayList<>();
 			boolean nullo = true;
@@ -214,7 +224,8 @@ public class RicercaController {
 					}
 				} catch (NumberFormatException e) {
 					this.lblErrore.setText(
-							"Errore! Devi inserire un valore decimale per il numero medio di biglietti venduti nell'apposita casella di testo.");
+							"Errore! Devi inserire un valore decimale per il numero medio di biglietti venduti.");
+					return;
 				}
 			}
 
@@ -232,7 +243,8 @@ public class RicercaController {
 					}
 				} catch (NumberFormatException e) {
 					this.lblErrore.setText(
-							"Errore! Devi inserire un valore intero per il cachet medio nell'apposita casella di testo.");
+							"Errore! Devi inserire un valore intero per il cachet medio.");
+					return;
 				}
 			}
 
@@ -265,7 +277,7 @@ public class RicercaController {
 			case "Trova gli artisti dato il nome o una parte di esso":
 				if (nome.equals("")) {
 					this.lblErrore.setText(
-							"Errore! Devi inserire il nome di un'artista o una parte di esso nell'apposita casella di testo.");
+							"Errore! Devi inserire il nome di un'artista o una parte di esso.");
 				} else {
 					data = FXCollections.observableArrayList(this.model.getArtistsByPartOfName(nome.trim()));
 					this.tableArtista.setItems(data);
@@ -279,7 +291,8 @@ public class RicercaController {
 					this.tableArtista.setItems(data);
 				} catch (NumberFormatException e) {
 					this.lblErrore.setText(
-							"Errore! Devi inserire un valore decimale per il numero medio di biglietti venduti nell'apposita casella di testo.");
+							"Errore! Devi inserire un valore decimale per il numero medio di biglietti venduti.");
+					return;
 				}
 				break;
 			case "Trova gli artisti per cachet":
@@ -290,7 +303,8 @@ public class RicercaController {
 					this.tableArtista.setItems(data);
 				} catch (NumberFormatException e) {
 					this.lblErrore.setText(
-							"Errore! Devi inserire un valore intero per il cachet medio nell'apposita casella di testo.");
+							"Errore! Devi inserire un valore intero per il cachet medio.");
+					return;
 				}
 				break;
 			}
@@ -334,6 +348,7 @@ public class RicercaController {
 		assert txtCachet != null : "fx:id=\"txtCachet\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert txtNome != null : "fx:id=\"txtNome\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert lblErrore != null : "fx:id=\"lblErrore\" was not injected: check your FXML file 'Ricerca.fxml'.";
+        assert lblSuccesso != null : "fx:id=\"lblSuccesso\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert btnAggiungi != null : "fx:id=\"btnAggiungi\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert btnSoluzione != null : "fx:id=\"btnSoluzione\" was not injected: check your FXML file 'Ricerca.fxml'.";

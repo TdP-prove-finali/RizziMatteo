@@ -130,14 +130,23 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </VBox>
-            <Label fx:id="lblErrore" textFill="RED">
-               <font>
-                  <Font name="System Bold" size="11.0" />
-               </font>
+            <HBox VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="10.0" left="25.0" right="25.0" />
                </VBox.margin>
-            </Label>
+               <children>
+                  <Label fx:id="lblErrore" textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblSuccesso" textFill="LIMEGREEN">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <VBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
                <children>
                   <Button fx:id="btnRicerca" mnemonicParsing="false" onAction="#avviaRicerca" style="-fx-background-color: #BF8F0B;" text="Avvia ricerca" textFill="WHITE">

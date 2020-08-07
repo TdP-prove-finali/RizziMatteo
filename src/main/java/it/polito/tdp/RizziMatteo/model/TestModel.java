@@ -9,11 +9,10 @@ public class TestModel {
 		Model model = new Model();
 		
 		List<String> generiSelezionati = new ArrayList<>();
-		generiSelezionati.add("R&B");
-		generiSelezionati.add("rap/trap");
+		generiSelezionati.add("pop");
 
 		List<String> generiPrivilegiati = new ArrayList<>();
-		List<Artista> best = model.calcolaCombinazioneMigliore(600000, 3, generiSelezionati, generiPrivilegiati, 1.0);
+		List<Artista> best = model.calcolaCombinazioneMigliore(600000, null, generiSelezionati, generiPrivilegiati, 1.0);
 		System.out.println("Combinazione migliore:");
 		for(Artista a : best) {
 			System.out.println(a);

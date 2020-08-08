@@ -99,28 +99,22 @@ public class Model {
 			return;
 
 		if (numeroArtisti == null) {
-			// if(spesa(parziale) <= budgetMassimo) {
+
 			if (sommaPesi(parziale, artistiConsentiti) > sommaPesi(best, artistiConsentiti)) {
 				best = new ArrayList<>(parziale);
 			}
-				// } else {
-				// il budget è stato sicuramente sforato, inutile proseguire
-				// return;
-			// }
+			
 		} else {
 			if (parziale.size() > numeroArtisti) {
 				return;
 			}
 			if (parziale.size() == numeroArtisti) {
-				// if(spesa(parziale) <= budgetMassimo) {
+
 				if (sommaPesi(parziale, artistiConsentiti) > sommaPesi(best, artistiConsentiti)) {
 					best = new ArrayList<>(parziale);
 					return;
 					}
-					// } else {
-					// il budget è stato sicuramente sforato, inutile proseguire
-					// return;
-				//}
+
 			}
 
 			// sicuramente parziale.size() < numeroArtisti
@@ -187,8 +181,8 @@ public class Model {
 				+ (generiSelezionati.size() - generiPrivilegiati.size()));
 		Double pesoMaggiore = fattoreCorrettivo * pesoMinore;
 
-		System.out.println("Peso minore: " + pesoMinore);
-		System.out.println("Peso maggiore: " + pesoMaggiore);
+		System.out.println("Peso minore: " + pesoMinore); // DA CANCELLARE
+		System.out.println("Peso maggiore: " + pesoMaggiore); // DA CANCELLARE
 
 		for (Artista artista : this.dao.listAllArtists()) {
 			if (artista.getCachetMedio() <= budgetMassimo) {

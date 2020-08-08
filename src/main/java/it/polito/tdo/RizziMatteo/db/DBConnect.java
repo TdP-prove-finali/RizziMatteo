@@ -8,7 +8,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class DBConnect {
 
-	private static final String jdbcURL = "jdbc:mysql://localhost/provafestivaldimusica"; // DA MODIFICARE!!!!!!!!!!
+	private static final String jdbcURL = "jdbc:mysql://localhost/provafestivaldimusica"; // TODO: DA MODIFICARE!!!!!!!!!!
 	private static HikariDataSource ds;
 	
 	public static Connection getConnection() {

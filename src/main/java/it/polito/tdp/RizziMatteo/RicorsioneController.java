@@ -202,6 +202,7 @@ public class RicorsioneController {
 		
 		ObservableList<Artista> data;
 		
+		// se i radio button sulla scelta dei privilegiati sono disattivati vuol dire che i generi non sono stati confermati
 		if(this.radioPrivilegiati.isDisabled() && this.radioNoPrivilegiati.isDisabled()) {
 			this.lblErrore.setText("Errore! Per poter avviare la ricorsione devi prima confermare la selezione dei generi musicali.");
 			return;
@@ -209,7 +210,7 @@ public class RicorsioneController {
 		
 		List<String> generiSelezionati = new ArrayList<>(this.generiAmmessi);
 		List<String> generiPrivilegiati = new ArrayList<>(this.generiPrivilegiati);
-		Double fattoreCorrettivo = 1.0;
+		Double fattoreCorrettivo = 1.0; // valore di default
 		Integer numeroArtisti = null;
 		Integer budgetMassimo;
 		
@@ -219,7 +220,8 @@ public class RicorsioneController {
 			this.lblErrore.setText("Errore! Devi inserire un valore numerico intero rappresentante il budget disponibile.");
 			return;
 		}
-				
+		
+		// se scelta opzione privilegiati ma la lista dei privilegiati è vuota segnalare errore
 		if(this.radioPrivilegiati.isSelected()) {
 			if(generiPrivilegiati.size() == 0) {
 				this.lblErrore.setText("Errore! Hai selezionato l'opzione dei generi privilegiati, ma non hai aggiunto alcun genere tra i privilegiati!");
@@ -244,11 +246,13 @@ public class RicorsioneController {
 			}
 		}
 		
+		// se il budget inserito è minore della spesa per gli artisti già aggiunti segnalare errore
 		if(budgetMassimo < this.model.getSpesaAggiunti()) {
 			this.lblErrore.setText("Errore! Il valore inserito per il budget è insufficiente: gli artisti aggiunti superano il valore del budget disponibile.");
 			return;
 		}
 		
+		// avvio ricorsione
 		List<Artista> best = this.model.calcolaCombinazioneMigliore(budgetMassimo, numeroArtisti, generiSelezionati, generiPrivilegiati, fattoreCorrettivo);
 		
 		Integer budgetRimanente = budgetMassimo - this.model.spesaTotale();
@@ -273,6 +277,7 @@ public class RicorsioneController {
 		this.boxPrivilegiati.setDisable(true);
 		this.sliderPeso.setDisable(true);
 		this.btnPrivilegiati.setDisable(true);
+		this.btnResetPrivilegiati.setDisable(true);
 		this.lblPrivilegiati.setDisable(true);
 
 	}
@@ -293,6 +298,9 @@ public class RicorsioneController {
 
 	@FXML
 	void doReset(ActionEvent event) {
+		this.lblErrore.setText("");
+    	this.lblSuccesso.setText("");
+    	
 		this.boxGeneri.setDisable(true);
 		this.btnGeneri.setDisable(true);
 		
@@ -306,6 +314,8 @@ public class RicorsioneController {
 		
 		this.boxPrivilegiati.setDisable(true);
 		this.sliderPeso.setDisable(true);
+		this.sliderPeso.setValue(1.0);
+		this.btnResetPrivilegiati.setDisable(true);
 		this.btnPrivilegiati.setDisable(true);
 		this.lblPrivilegiati.setDisable(true);
 		
@@ -335,6 +345,7 @@ public class RicorsioneController {
     	this.generiAmmessi = new ArrayList<>();
     	
 		if(this.radioGeneriSelezionati.isSelected()) {
+			// se si vuole aggiungere dei generi in particolare bisogna prima confermare l'aggiunta di ciascuno tramite apposito bottone
 			if(this.boxPrivilegiati.getItems().size() == 0) {
 				this.lblErrore.setText("Errore! Per poter confermare i generi selezionati devi averne aggiunto almeno uno.");
 				return;
@@ -382,6 +393,7 @@ public class RicorsioneController {
 			return;
 		}
 		
+		// se genere musicale già aggiunto tra i privilegiati
 		if(this.boxPrivilegiati.getItems().contains(genere)) {
 			this.lblErrore.setText("Errore! Il genere selezionato è stato già aggiunto.");
 			return;

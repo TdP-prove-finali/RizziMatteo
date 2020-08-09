@@ -52,6 +52,9 @@ public class RicercaController {
 
 	@FXML
 	private TextField txtNumeroBiglietti;
+	
+    @FXML
+    private TextField txtSpotify;
 
 	@FXML
 	private TextField txtCachet;
@@ -85,6 +88,9 @@ public class RicercaController {
 
 	@FXML
 	private TableColumn<Artista, Double> tcBiglietti;
+	
+    @FXML
+    private TableColumn<Artista, Integer> tcSpotify;
 
 	@FXML
 	private TableColumn<Artista, Integer> tcCachet;
@@ -99,21 +105,32 @@ public class RicercaController {
 			this.txtNome.setDisable(true);
 			this.txtNumeroBiglietti.setDisable(true);
 			this.txtCachet.setDisable(true);
+			this.txtSpotify.setDisable(true);
 			break;
 		case "Trova gli artisti dato il nome o una parte di esso":
 			this.txtNome.setDisable(false);
 			this.txtNumeroBiglietti.setDisable(true);
 			this.txtCachet.setDisable(true);
 			this.boxGenere.setDisable(true);
+			this.txtSpotify.setDisable(true);
 			break;
 		case "Trova gli artisti per numero medio di biglietti venduti":
 			this.txtNumeroBiglietti.setDisable(false);
 			this.txtCachet.setDisable(true);
 			this.boxGenere.setDisable(true);
 			this.txtNome.setDisable(true);
+			this.txtSpotify.setDisable(true);
 			break;
 		case "Trova gli artisti per cachet":
 			this.txtCachet.setDisable(false);
+			this.boxGenere.setDisable(true);
+			this.txtNome.setDisable(true);
+			this.txtNumeroBiglietti.setDisable(true);
+			this.txtSpotify.setDisable(true);
+			break;
+		case "Trova gli artisti per ascolti su Spotify nell'ultimo mese":
+			this.txtSpotify.setDisable(false);
+			this.txtCachet.setDisable(true);
 			this.boxGenere.setDisable(true);
 			this.txtNome.setDisable(true);
 			this.txtNumeroBiglietti.setDisable(true);
@@ -158,6 +175,7 @@ public class RicercaController {
 		this.txtCachet.clear();
 		this.txtNome.clear();
 		this.txtNumeroBiglietti.clear();
+		this.txtSpotify.clear();
 
 		this.boxFiltro.setDisable(true);
 
@@ -165,6 +183,7 @@ public class RicercaController {
 		this.txtNome.setDisable(false);
 		this.txtNumeroBiglietti.setDisable(false);
 		this.txtCachet.setDisable(false);
+		this.txtSpotify.setDisable(false);
 	}
 
 	@FXML
@@ -172,6 +191,7 @@ public class RicercaController {
 		this.txtCachet.clear();
 		this.txtNome.clear();
 		this.txtNumeroBiglietti.clear();
+		this.txtSpotify.clear();
 
 		this.boxFiltro.setDisable(false);
 
@@ -179,7 +199,7 @@ public class RicercaController {
 		this.txtNome.setDisable(true);
 		this.txtNumeroBiglietti.setDisable(true);
 		this.txtCachet.setDisable(true);
-
+		this.txtSpotify.setDisable(true);
 	}
 
 	@FXML
@@ -225,6 +245,25 @@ public class RicercaController {
 				} catch (NumberFormatException e) {
 					this.lblErrore.setText(
 							"Errore! Devi inserire un valore decimale per il numero medio di biglietti venduti.");
+					return;
+				}
+			}
+			
+			String spotifyTesto = this.txtSpotify.getText().trim();
+			if (!spotifyTesto.equals("")) {
+				try {
+					Integer spotify = Integer.parseInt(spotifyTesto);
+					if (nullo) {
+						intersezione.addAll(this.model.getArtistsByStreamsOnSpotify(spotify));
+						nullo = false;
+					} else {
+						List<Artista> artisti = new ArrayList<>();
+						artisti.addAll(this.model.getArtistsByStreamsOnSpotify(spotify));
+						intersezione = this.model.intersezioneArtisti(artisti, intersezione);
+					}
+				} catch (NumberFormatException e) {
+					this.lblErrore.setText(
+							"Errore! Devi inserire un valore intero per il numero di ascolti su Spotify.");
 					return;
 				}
 			}
@@ -295,6 +334,18 @@ public class RicercaController {
 					return;
 				}
 				break;
+			case "Trova gli artisti per ascolti su Spotify nell'ultimo mese":
+				Integer spotify;
+					try {
+						spotify = Integer.parseInt(this.txtSpotify.getText().trim());
+						data = FXCollections.observableArrayList(this.model.getArtistsByStreamsOnSpotify(spotify));
+						this.tableArtista.setItems(data);
+					} catch (NumberFormatException e) {
+						this.lblErrore.setText(
+								"Errore! Devi inserire un valore intero per il numero di ascolti su Spotify.");
+						return;
+					}
+				break;
 			case "Trova gli artisti per cachet":
 				Long cachet;
 				try {
@@ -345,6 +396,7 @@ public class RicercaController {
 		assert boxFiltro != null : "fx:id=\"boxFiltro\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert boxGenere != null : "fx:id=\"boxGenere\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert txtNumeroBiglietti != null : "fx:id=\"txtNumeroBiglietti\" was not injected: check your FXML file 'Ricerca.fxml'.";
+        assert txtSpotify != null : "fx:id=\"txtSpotify\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert txtCachet != null : "fx:id=\"txtCachet\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert txtNome != null : "fx:id=\"txtNome\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert lblErrore != null : "fx:id=\"lblErrore\" was not injected: check your FXML file 'Ricerca.fxml'.";
@@ -356,6 +408,7 @@ public class RicercaController {
 		assert tcNome != null : "fx:id=\"tcNome\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert tcGenere != null : "fx:id=\"tcGenere\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert tcBiglietti != null : "fx:id=\"tcBiglietti\" was not injected: check your FXML file 'Ricerca.fxml'.";
+        assert tcSpotify != null : "fx:id=\"tcSpotify\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert tcCachet != null : "fx:id=\"tcCachet\" was not injected: check your FXML file 'Ricerca.fxml'.";
 
 	}
@@ -366,6 +419,7 @@ public class RicercaController {
 		filtri.add(new String("Trova tutti gli artisti"));
 		filtri.add(new String("Trova gli artisti appartenenti ad un genere musicale"));
 		filtri.add(new String("Trova gli artisti per numero medio di biglietti venduti"));
+		filtri.add(new String("Trova gli artisti per ascolti su Spotify nell'ultimo mese"));
 		filtri.add(new String("Trova gli artisti per cachet"));
 		filtri.add(new String("Trova gli artisti dato il nome o una parte di esso"));
 		this.boxFiltro.getItems().addAll(filtri);
@@ -376,6 +430,7 @@ public class RicercaController {
 		this.tcCachet.setCellValueFactory(new PropertyValueFactory<Artista, Integer>("cachetMedio"));
 		this.tcGenere.setCellValueFactory(new PropertyValueFactory<Artista, String>("genere"));
 		this.tcNome.setCellValueFactory(new PropertyValueFactory<Artista, String>("nome"));
+		this.tcSpotify.setCellValueFactory(new PropertyValueFactory<Artista, Integer>("ascoltiSpotifyUltimoMese"));
 
 	}
 }

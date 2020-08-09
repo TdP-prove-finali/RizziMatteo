@@ -8,7 +8,7 @@ public class Artista {
 	private Long bigliettiVenduti;
 	private Integer numeroDiShow;
 	private Double numeroMedioBigliettiVenduti;
-//	private Long ascoltiSpotifyMensili;
+	private Integer ascoltiSpotifyUltimoMese;
 	private Integer cachetMedio;
 
 	/**
@@ -23,7 +23,7 @@ public class Artista {
 	 * @param cachetMedio
 	 */
 	public Artista(Integer id, String nome, String genere, Long bigliettiVenduti, Integer numeroDiShow,
-			Double numeroMedioBigliettiVenduti, /*Long ascoltiSpotifyMensili, */ Integer cachetMedio) {
+			Double numeroMedioBigliettiVenduti, Integer ascoltiSpotifyUltimoMese, Integer cachetMedio) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -31,7 +31,7 @@ public class Artista {
 		this.bigliettiVenduti = bigliettiVenduti;
 		this.numeroDiShow = numeroDiShow;
 		this.numeroMedioBigliettiVenduti = numeroMedioBigliettiVenduti;
-	//	this.ascoltiSpotifyMensili = ascoltiSpotifyMensili;
+		this.ascoltiSpotifyUltimoMese = ascoltiSpotifyUltimoMese;
 		this.cachetMedio = cachetMedio;
 	}
 
@@ -83,13 +83,13 @@ public class Artista {
 		this.numeroMedioBigliettiVenduti = numeroMedioBigliettiVenduti;
 	}
 
-/*	public Long getAscoltiSpotifyMensili() {
-		return ascoltiSpotifyMensili;
+	public Integer getAscoltiSpotifyUltimoMese() {
+		return ascoltiSpotifyUltimoMese;
 	}
 
-	public void setAscoltiSpotifyMensili(Long ascoltiSpotifyMensili) {
-		this.ascoltiSpotifyMensili = ascoltiSpotifyMensili;
-	} */
+	public void setAscoltiSpotifyMensili(Integer ascoltiSpotifyUltimoMese) {
+		this.ascoltiSpotifyUltimoMese = ascoltiSpotifyUltimoMese;
+	}
 
 	public Integer getCachetMedio() {
 		return cachetMedio;

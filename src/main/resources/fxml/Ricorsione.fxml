@@ -332,6 +332,7 @@
           <TableColumn fx:id="colNome" prefWidth="68.0" text="Nome" />
           <TableColumn fx:id="colGenere" prefWidth="73.0" text="Genere" />
             <TableColumn fx:id="colBiglietti" prefWidth="214.0" text="Numero medio di biglietti venduti" />
+            <TableColumn fx:id="colSpotify" prefWidth="180.0" text="Ascolti su Spotify ultimo mese" />
             <TableColumn fx:id="colCachet" prefWidth="110.0" text="Cachet medio ($)" />
         </columns>
          <columnResizePolicy>

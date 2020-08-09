@@ -23,7 +23,7 @@ public class FestivalDiMusicaDAO {
 
 				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("ascolti_Spotify_ultimo_mese"), res.getInt("cachet_medio"));
 
 				list.add(artista);
 			}
@@ -48,7 +48,7 @@ public class FestivalDiMusicaDAO {
 				if (res.getString("nome").toLowerCase().contains(nome.toLowerCase())) {
 					Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 							res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-							res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
+							res.getDouble("numero_medio_biglietti_venduti"), res.getInt("ascolti_Spotify_ultimo_mese"), res.getInt("cachet_medio"));
 					list.add(artista);
 				}
 			}
@@ -74,7 +74,7 @@ public class FestivalDiMusicaDAO {
 
 				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("ascolti_Spotify_ultimo_mese"), res.getInt("cachet_medio"));
 
 				list.add(artista);
 			}
@@ -100,7 +100,33 @@ public class FestivalDiMusicaDAO {
 
 				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("ascolti_Spotify_ultimo_mese"), res.getInt("cachet_medio"));
+
+				list.add(artista);
+			}
+			conn.close();
+			return list;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Artista> getArtistsByStreamsOnSpotify(Integer spotify) {
+		String sql = "SELECT * FROM artisti WHERE ascolti_Spotify_ultimo_mese >= ?";
+		List<Artista> list = new ArrayList<>();
+		Connection conn = DBConnect.getConnection();
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setDouble(1, spotify);
+			ResultSet res = st.executeQuery();
+			while (res.next()) {
+
+				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
+						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("ascolti_Spotify_ultimo_mese"), res.getInt("cachet_medio"));
 
 				list.add(artista);
 			}
@@ -126,7 +152,7 @@ public class FestivalDiMusicaDAO {
 
 				Artista artista = new Artista(res.getInt("id"), res.getString("nome"), res.getString("genere"),
 						res.getLong("biglietti_venduti"), res.getInt("numero_di_show"),
-						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("cachet_medio"));
+						res.getDouble("numero_medio_biglietti_venduti"), res.getInt("ascolti_Spotify_ultimo_mese"), res.getInt("cachet_medio"));
 
 				list.add(artista);
 			}

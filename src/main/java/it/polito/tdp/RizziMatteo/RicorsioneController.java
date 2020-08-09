@@ -136,6 +136,9 @@ public class RicorsioneController {
 
 	@FXML
 	private TableColumn<Artista, Double> colBiglietti;
+	
+    @FXML
+    private TableColumn<Artista, Integer> colSpotify;
 
 	@FXML
 	private TableColumn<Artista, Integer> colCachet;
@@ -253,8 +256,14 @@ public class RicorsioneController {
 		}
 		
 		// avvio ricorsione
-		List<Artista> best = this.model.calcolaCombinazioneMigliore(budgetMassimo, numeroArtisti, generiSelezionati, generiPrivilegiati, fattoreCorrettivo);
-		
+		List<Artista> best = new ArrayList<>();
+		if(this.radioBiglietti.isSelected()) {
+			best = this.model.calcolaCombinazioneMigliore(budgetMassimo, numeroArtisti, generiSelezionati, generiPrivilegiati, fattoreCorrettivo, 'B');
+		}
+		else if(this.radioSpotify.isSelected()) {
+			best = this.model.calcolaCombinazioneMigliore(budgetMassimo, numeroArtisti, generiSelezionati, generiPrivilegiati, fattoreCorrettivo, 'S');
+		}
+			
 		Integer budgetRimanente = budgetMassimo - this.model.spesaTotale();
 		
 		this.txtBudgetRimanente.setText(budgetRimanente.toString());
@@ -462,6 +471,7 @@ public class RicorsioneController {
 		assert colNome != null : "fx:id=\"colNome\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert colGenere != null : "fx:id=\"colGenere\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert colBiglietti != null : "fx:id=\"colBiglietti\" was not injected: check your FXML file 'Ricorsione.fxml'.";
+        assert colSpotify != null : "fx:id=\"colSpotify\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert colCachet != null : "fx:id=\"colCachet\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 
 	}
@@ -477,6 +487,7 @@ public class RicorsioneController {
 		this.colCachet.setCellValueFactory(new PropertyValueFactory<Artista, Integer>("cachetMedio"));
 		this.colGenere.setCellValueFactory(new PropertyValueFactory<Artista, String>("genere"));
 		this.colNome.setCellValueFactory(new PropertyValueFactory<Artista, String>("nome"));
+		this.colSpotify.setCellValueFactory(new PropertyValueFactory<Artista, Integer>("ascoltiSpotifyUltimoMese"));
 		
 	}
 }

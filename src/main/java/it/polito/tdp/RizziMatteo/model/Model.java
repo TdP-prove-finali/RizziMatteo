@@ -54,6 +54,10 @@ public class Model {
 	public List<String> getMusicalGenres() {
 		return this.dao.getMusicalGenres();
 	}
+	
+	public List<Artista> getArtistsByStreamsOnSpotify(Integer spotify) {
+		return this.dao.getArtistsByStreamsOnSpotify(spotify);
+	}
 
 	public List<Artista> getParziale() {
 		return parziale;
@@ -72,11 +76,11 @@ public class Model {
 	}
 
 	public List<Artista> calcolaCombinazioneMigliore(Integer budgetMassimo, Integer numeroArtisti,
-			List<String> generiSelezionati, List<String> generiPrivilegiati, Double fattoreCorrettivo) {
+			List<String> generiSelezionati, List<String> generiPrivilegiati, Double fattoreCorrettivo, char tipo) {
 
 		this.best = new ArrayList<>();
 		List<ArtistaPesato> artistiConsentiti = this.getArtistiPesati(generiPrivilegiati, generiSelezionati,
-				fattoreCorrettivo, budgetMassimo);
+				fattoreCorrettivo, budgetMassimo, tipo);
 		Collections.sort(artistiConsentiti);
 
 		System.out.println("Size artisti consentiti: " + artistiConsentiti.size()); // DA CANCELLARE
@@ -170,7 +174,7 @@ public class Model {
 	}
 
 	private List<ArtistaPesato> getArtistiPesati(List<String> generiPrivilegiati, List<String> generiSelezionati,
-			Double fattoreCorrettivo, Integer budgetMassimo) {
+			Double fattoreCorrettivo, Integer budgetMassimo, char tipo) {
 		List<ArtistaPesato> artistiConsentiti = new ArrayList<>();
 
 		if (generiPrivilegiati.size() == 0) {
@@ -187,12 +191,28 @@ public class Model {
 		for (Artista artista : this.dao.listAllArtists()) {
 			if (artista.getCachetMedio() <= budgetMassimo) {
 				if (generiPrivilegiati.size() != 0 && generiPrivilegiati.contains(artista.getGenere())) {
+					// 'B' sta per numero medio di biglietti venduti, 'S' sta per ascolti su Spotify nell'ultimo mese
+					if(tipo == 'B') {
 					ArtistaPesato a = new ArtistaPesato(artista,
 							artista.getNumeroMedioBigliettiVenduti() * pesoMaggiore);
 					artistiConsentiti.add(a);
+					}
+					else if (tipo == 'S') {
+						ArtistaPesato a = new ArtistaPesato(artista,
+								artista.getAscoltiSpotifyUltimoMese() * pesoMaggiore);
+						artistiConsentiti.add(a);
+					}
 				} else if (generiSelezionati.size() != 0 && generiSelezionati.contains(artista.getGenere())) {
-					ArtistaPesato a = new ArtistaPesato(artista, artista.getNumeroMedioBigliettiVenduti() * pesoMinore);
-					artistiConsentiti.add(a);
+					if(tipo == 'B') {
+						ArtistaPesato a = new ArtistaPesato(artista,
+								artista.getNumeroMedioBigliettiVenduti() * pesoMinore);
+						artistiConsentiti.add(a);
+						}
+						else if (tipo == 'S') {
+							ArtistaPesato a = new ArtistaPesato(artista,
+									artista.getAscoltiSpotifyUltimoMese() * pesoMinore);
+							artistiConsentiti.add(a);
+						}
 				}
 			}
 		}

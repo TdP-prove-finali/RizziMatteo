@@ -12,7 +12,7 @@ public class TestModel {
 		generiSelezionati.add("pop");
 
 		List<String> generiPrivilegiati = new ArrayList<>();
-		List<Artista> best = model.calcolaCombinazioneMigliore(600000, null, generiSelezionati, generiPrivilegiati, 1.0);
+		List<Artista> best = model.calcolaCombinazioneMigliore(600000, null, generiSelezionati, generiPrivilegiati, 1.0, 'S');
 		System.out.println("Combinazione migliore:");
 		for(Artista a : best) {
 			System.out.println(a);

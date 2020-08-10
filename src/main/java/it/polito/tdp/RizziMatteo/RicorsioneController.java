@@ -121,6 +121,9 @@ public class RicorsioneController {
 
 	@FXML
 	private Button btnReset;
+	
+    @FXML
+    private Button btnResetNoAggiunti;
 
 	@FXML
 	private Button btnHome;
@@ -272,6 +275,7 @@ public class RicorsioneController {
 		this.tableSoluzione.setItems(data);
 		
 		this.btnReset.setDisable(false);
+		this.btnResetNoAggiunti.setDisable(false);
 		this.btnRicorsione.setDisable(true);
 	}
 
@@ -337,6 +341,7 @@ public class RicorsioneController {
 		this.txtSpesa.setText(this.model.getSpesaAggiunti().toString());
 		
 		this.btnReset.setDisable(true);
+		this.btnResetNoAggiunti.setDisable(true);
 		this.btnRicorsione.setDisable(false);
 		
 		this.radioTuttiGeneri.setSelected(true);
@@ -347,6 +352,48 @@ public class RicorsioneController {
 		this.generiPrivilegiati = new ArrayList<>();
 
 	}
+	
+    @FXML
+    void doResetNoAggiunti(ActionEvent event) {
+    	this.lblErrore.setText("");
+    	this.lblSuccesso.setText("");
+    	
+		this.boxGeneri.setDisable(true);
+		this.btnGeneri.setDisable(true);
+		
+		this.radioPrivilegiati.setDisable(true);
+		this.radioNoPrivilegiati.setDisable(true);
+		this.boxPrivilegiati.setDisable(true);
+		this.sliderPeso.setDisable(true);
+		this.btnPrivilegiati.setDisable(true);
+		this.lblPrivilegiati.setDisable(true);
+		this.boxPrivilegiati.getItems().clear();
+		
+		this.boxPrivilegiati.setDisable(true);
+		this.sliderPeso.setDisable(true);
+		this.sliderPeso.setValue(1.0);
+		this.btnResetPrivilegiati.setDisable(true);
+		this.btnPrivilegiati.setDisable(true);
+		this.lblPrivilegiati.setDisable(true);
+		
+		this.txtNumeroArtisti.setDisable(true);
+		
+		this.txtBudgetDisponibile.clear();
+		this.txtBudgetRimanente.clear();
+		this.txtNumeroArtisti.clear();
+		this.model.resetSpesa();
+		
+		this.btnResetNoAggiunti.setDisable(true);
+		this.btnReset.setDisable(true);
+		this.btnRicorsione.setDisable(false);
+		
+		this.radioTuttiGeneri.setSelected(true);
+		this.radioArtistiIllimitati.setSelected(true);
+		this.radioNoPrivilegiati.setSelected(true);
+		
+		this.generiPrivilegiati = new ArrayList<>();
+
+    }
 	
     @FXML
     void permettiSceltaPrivilegiati(ActionEvent event) {
@@ -466,6 +513,7 @@ public class RicorsioneController {
         assert lblSuccesso != null : "fx:id=\"lblSuccesso\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnRicorsione != null : "fx:id=\"btnRicorsione\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Ricorsione.fxml'.";
+        assert btnResetNoAggiunti != null : "fx:id=\"btnResetNoAggiunti\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert tableSoluzione != null : "fx:id=\"tableSoluzione\" was not injected: check your FXML file 'Ricorsione.fxml'.";
 		assert colNome != null : "fx:id=\"colNome\" was not injected: check your FXML file 'Ricorsione.fxml'.";

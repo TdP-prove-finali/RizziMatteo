@@ -73,6 +73,9 @@ public class RicercaController {
 
 	@FXML
 	private Button btnAggiungi;
+	
+    @FXML
+    private Button btnElimina;
 
 	@FXML
 	private Button btnSoluzione;
@@ -167,6 +170,7 @@ public class RicercaController {
 		this.model.getParziale().add(artista);
 		this.lblSuccesso.setText("Artista aggiunto con successo!");
 		this.model.aggiornaSpesa(artista.getCachetMedio());
+		this.btnElimina.setDisable(false);
 
 	}
 
@@ -176,6 +180,7 @@ public class RicercaController {
 		this.txtNome.clear();
 		this.txtNumeroBiglietti.clear();
 		this.txtSpotify.clear();
+		this.boxGenere.setValue(null);
 
 		this.boxFiltro.setDisable(true);
 
@@ -192,6 +197,7 @@ public class RicercaController {
 		this.txtNome.clear();
 		this.txtNumeroBiglietti.clear();
 		this.txtSpotify.clear();
+		this.boxGenere.setValue(null);
 
 		this.boxFiltro.setDisable(false);
 
@@ -360,8 +366,23 @@ public class RicercaController {
 				break;
 			}
 		}
+		
+		this.boxGenere.setValue(null);
 
 	}
+	
+    @FXML
+    void doElimina(ActionEvent event) {
+    	this.lblErrore.setText("");
+		this.lblSuccesso.setText("");
+		
+		this.model.getParziale().clear();
+		this.model.resetSpesa();
+		this.lblSuccesso.setText("Gli artisti aggiunti in precedenza alla soluzione sono stati eliminati correttamente!");
+		
+		this.btnElimina.setDisable(true);
+
+    }
 
 	@FXML
 	void vaiAllaSoluzione(ActionEvent event) {
@@ -403,6 +424,7 @@ public class RicercaController {
         assert lblSuccesso != null : "fx:id=\"lblSuccesso\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert btnAggiungi != null : "fx:id=\"btnAggiungi\" was not injected: check your FXML file 'Ricerca.fxml'.";
+        assert btnElimina != null : "fx:id=\"btnElimina\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert btnSoluzione != null : "fx:id=\"btnSoluzione\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert tableArtista != null : "fx:id=\"tableArtista\" was not injected: check your FXML file 'Ricerca.fxml'.";
 		assert tcNome != null : "fx:id=\"tcNome\" was not injected: check your FXML file 'Ricerca.fxml'.";

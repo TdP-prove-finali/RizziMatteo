@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import it.polito.tdo.RizziMatteo.db.FestivalDiMusicaDAO;
+import it.polito.tdp.RizziMatteo.db.FestivalDiMusicaDAO;
 
 public class Model {
 

@@ -1,4 +1,4 @@
-package it.polito.tdo.RizziMatteo.db;
+package it.polito.tdp.RizziMatteo.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;

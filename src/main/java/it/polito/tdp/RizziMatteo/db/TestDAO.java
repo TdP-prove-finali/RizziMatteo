@@ -1,4 +1,4 @@
-package it.polito.tdo.RizziMatteo.db;
+package it.polito.tdp.RizziMatteo.db;
 
 import it.polito.tdp.RizziMatteo.model.Artista;
 

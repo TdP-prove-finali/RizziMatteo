@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dump dei dati della tabella festivaldimusica.artisti: ~0 rows (circa)
+-- Dump dei dati della tabella festivaldimusica.artisti: ~219 rows (circa)
 /*!40000 ALTER TABLE `artisti` DISABLE KEYS */;
 INSERT INTO `artisti` (`id`, `nome`, `genere`, `biglietti_venduti`, `numero_di_show`, `numero_medio_biglietti_venduti`, `ascolti_Spotify_ultimo_mese`, `cachet_medio`) VALUES
 	(1, '5 Seconds of Summer', 'pop', 743906, 83, 8963, 21174639, 750000),
@@ -21,7 +21,7 @@ INSERT INTO `artisti` (`id`, `nome`, `genere`, `biglietti_venduti`, `numero_di_s
 	(5, 'Alanis Morisette', 'rock', 121018, 40, 3025, 6012194, 300000),
 	(6, 'Alicia Keys', 'pop', 202226, 23, 8792, 19547076, 550000),
 	(7, 'All Time Low', 'punk', 53980, 5, 10796, 4583842, 112500),
-	(8, 'Andr‚ Rieu', 'classical', 640923, 68, 9425, 891203, 200000),
+	(8, 'André Rieu', 'classical', 640923, 68, 9425, 891203, 200000),
 	(9, 'Andrea Bocelli', 'classical', 478854, 45, 10641, 3904720, 1250000),
 	(10, 'Arctic Monkeys', 'alternative', 278533, 18, 15474, 13588128, 475000),
 	(11, 'Ariana Grande', 'pop', 1329061, 97, 13702, 55806678, 750000),
@@ -31,7 +31,7 @@ INSERT INTO `artisti` (`id`, `nome`, `genere`, `biglietti_venduti`, `numero_di_s
 	(15, 'Bad Bunny', 'latin', 664747, 53, 12542, 42751672, 500000),
 	(16, 'Barbra Streisand', 'pop', 203423, 16, 12714, 3870930, 750000),
 	(17, 'Bebe Rexha', 'pop', 7108, 9, 790, 25787286, 300000),
-	(18, 'Beyonc‚', 'R&B', 2242099, 49, 45757, 38931924, 1250000),
+	(18, 'Beyoncé', 'R&B', 2242099, 49, 45757, 38931924, 1250000),
 	(19, 'Big Bang', 'j-pop/k-pop', 766000, 16, 47875, 2217019, 750000),
 	(20, 'Billy Joel', 'rock', 565585, 21, 26933, 14629862, 1250000),
 	(21, 'Blake Shelton', 'country', 474448, 26, 18248, 7928605, 750000),

@@ -139,18 +139,6 @@ public class Model {
 		// provo a non aggiungerlo
 		this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti, L + 1);
 
-		
-	/*	 for(ArtistaPesato a : artistiConsentiti) {
-			 if(!parziale.contains(a.getArtista())) {
-				 Integer spesaIpotetica = spesa(parziale) + a.getArtista().getCachetMedio();
-				 if(spesaIpotetica <= budgetMassimo) {
-					 parziale.add(a.getArtista());
-					 this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti, L + 1); 
-					 // parziale.remove(a.getArtista()); 
-					 }
-				 }
-			 } */
-
 	}
 
 	private Double sommaPesi(List<Artista> artisti, List<ArtistaPesato> artistiConsentiti) {

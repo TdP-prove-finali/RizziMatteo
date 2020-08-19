@@ -143,6 +143,7 @@ public class RicercaController {
 			this.txtNome.setDisable(true);
 			this.txtNumeroBiglietti.setDisable(true);
 			this.txtCachet.setDisable(true);
+			this.txtSpotify.setDisable(true);
 			break;
 		}
 

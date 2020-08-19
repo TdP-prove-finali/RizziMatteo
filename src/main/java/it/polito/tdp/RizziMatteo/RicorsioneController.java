@@ -260,13 +260,18 @@ public class RicorsioneController {
 		
 		// avvio ricorsione
 		List<Artista> best = new ArrayList<>();
+		double start = System.nanoTime();
 		if(this.radioBiglietti.isSelected()) {
 			best = this.model.calcolaCombinazioneMigliore(budgetMassimo, numeroArtisti, generiSelezionati, generiPrivilegiati, fattoreCorrettivo, 'B');
 		}
 		else if(this.radioSpotify.isSelected()) {
 			best = this.model.calcolaCombinazioneMigliore(budgetMassimo, numeroArtisti, generiSelezionati, generiPrivilegiati, fattoreCorrettivo, 'S');
 		}
-			
+		double stop = System.nanoTime();
+		double tempo = (stop - start) / 1000000;
+		
+		this.lblSuccesso.setText("Ricorsione completata in " + tempo + " millisecondi");
+		
 		Integer budgetRimanente = budgetMassimo - this.model.spesaTotale();
 		
 		this.txtBudgetRimanente.setText(budgetRimanente.toString());
@@ -381,7 +386,6 @@ public class RicorsioneController {
 		this.txtBudgetDisponibile.clear();
 		this.txtBudgetRimanente.clear();
 		this.txtNumeroArtisti.clear();
-		this.model.resetSpesa();
 		
 		this.btnResetNoAggiunti.setDisable(true);
 		this.btnReset.setDisable(true);
@@ -398,6 +402,7 @@ public class RicorsioneController {
     @FXML
     void permettiSceltaPrivilegiati(ActionEvent event) {
     	this.lblErrore.setText("");
+    	this.lblSuccesso.setText("");
     	this.generiAmmessi = new ArrayList<>();
     	
 		if(this.radioGeneriSelezionati.isSelected()) {

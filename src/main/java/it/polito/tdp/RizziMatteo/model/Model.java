@@ -83,7 +83,7 @@ public class Model {
 				fattoreCorrettivo, budgetMassimo, tipo);
 		Collections.sort(artistiConsentiti);
 
-		System.out.println("Size artisti consentiti: " + artistiConsentiti.size()); // DA CANCELLARE
+		// System.out.println("Size artisti consentiti: " + artistiConsentiti.size());
 		List<Artista> parziale = new ArrayList<>(this.parziale);
 
 		this.ricorsione(budgetMassimo, parziale, artistiConsentiti, numeroArtisti, 0);
@@ -93,11 +93,11 @@ public class Model {
 
 	private void ricorsione(Integer budgetMassimo, List<Artista> parziale, List<ArtistaPesato> artistiConsentiti,
 			Integer numeroArtisti, Integer L) {
-		System.out.println(parziale); // DA CANCELLARE
-		System.out.println("Spesa: " + spesa(parziale)); // DA CANCELLARE
-		System.out.println("best" + best); // DA CANCELLARE
-		System.out.println("somma pesi parziale: " + sommaPesi(parziale, artistiConsentiti)); // DA CANCELLARE
-		System.out.println("somma pesi best: " + sommaPesi(best, artistiConsentiti)); // DA CANCELLARE
+		//System.out.println(parziale);
+		//System.out.println("Spesa: " + spesa(parziale));
+		//System.out.println("best" + best);
+		//System.out.println("somma pesi parziale: " + sommaPesi(parziale, artistiConsentiti));
+		//System.out.println("somma pesi best: " + sommaPesi(best, artistiConsentiti));
 
 		if (this.spesaAggiunti > budgetMassimo)
 			return;
@@ -173,8 +173,8 @@ public class Model {
 				+ (generiSelezionati.size() - generiPrivilegiati.size()));
 		Double pesoMaggiore = fattoreCorrettivo * pesoMinore;
 
-		System.out.println("Peso minore: " + pesoMinore); // DA CANCELLARE
-		System.out.println("Peso maggiore: " + pesoMaggiore); // DA CANCELLARE
+		//System.out.println("Peso minore: " + pesoMinore);
+		//System.out.println("Peso maggiore: " + pesoMaggiore);
 
 		for (Artista artista : this.dao.listAllArtists()) {
 			if (artista.getCachetMedio() <= budgetMassimo) {

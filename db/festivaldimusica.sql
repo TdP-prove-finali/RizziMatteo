@@ -11,7 +11,25 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dump dei dati della tabella festivaldimusica.artisti: ~219 rows (circa)
+
+-- Dump della struttura del database festivaldimusica
+CREATE DATABASE IF NOT EXISTS `festivaldimusica` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_nopad_ci */;
+USE `festivaldimusica`;
+
+-- Dump della struttura di tabella festivaldimusica.artisti
+CREATE TABLE IF NOT EXISTS `artisti` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `genere` varchar(50) NOT NULL,
+  `biglietti_venduti` int(10) unsigned NOT NULL DEFAULT 0,
+  `numero_di_show` int(10) unsigned NOT NULL DEFAULT 0,
+  `numero_medio_biglietti_venduti` double(22,0) unsigned NOT NULL DEFAULT 0,
+  `ascolti_Spotify_ultimo_mese` int(10) unsigned NOT NULL DEFAULT 0,
+  `cachet_medio` int(10) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=latin1;
+
+-- Dump dei dati della tabella festivaldimusica.artisti: ~0 rows (circa)
 /*!40000 ALTER TABLE `artisti` DISABLE KEYS */;
 INSERT INTO `artisti` (`id`, `nome`, `genere`, `biglietti_venduti`, `numero_di_show`, `numero_medio_biglietti_venduti`, `ascolti_Spotify_ultimo_mese`, `cachet_medio`) VALUES
 	(1, '5 Seconds of Summer', 'pop', 743906, 83, 8963, 21174639, 750000),
@@ -152,7 +170,7 @@ INSERT INTO `artisti` (`id`, `nome`, `genere`, `biglietti_venduti`, `numero_di_s
 	(136, 'Matchbox Twenty', 'alternative', 60855, 12, 5071, 4261221, 500000),
 	(137, 'Maxwell', 'R&B', 33482, 3, 11161, 1955552, 225000),
 	(138, 'Meghan Trainor', 'R&B', 41494, 8, 5187, 15585726, 400000),
-	(139, 'Michael Bubl‚', 'pop', 1108305, 101, 10973, 8029952, 875000),
+	(139, 'Michael Bublé', 'pop', 1108305, 101, 10973, 8029952, 875000),
 	(140, 'Miley Cyrus', 'pop', 389437, 28, 13908, 25158914, 1250000),
 	(141, 'Miranda Lambert', 'country', 26949, 5, 5390, 5279098, 425000),
 	(142, 'Mumford & Sons', 'folk', 919488, 72, 12771, 8148375, 300000),
